@@ -50,4 +50,16 @@ public class StringCalculatorTest {
         assertEquals(7, stringCalculator.add("1,2,4"));
         assertEquals(12, stringCalculator.add("1,2,4,5"));
     }
+    @Test
+    public void shouldReturnSumWithNewLineAsDelimiter() {
+        assertEquals(12, stringCalculator.add("1,2\n4,5"));
+        assertEquals(12, stringCalculator.add("1\n2\n4\n5"));
+    }
+    @Test
+    public void shouldThrowExceptionOnFewDelimiter2() {
+        try{
+            stringCalculator.add("1,\n2,3");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
 }

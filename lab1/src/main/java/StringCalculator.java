@@ -4,6 +4,7 @@ public class StringCalculator {
         else if(numbers.endsWith(",")) throw new WrongDelimiterException("Wrong delimiter");
         else {
             int sumOfNumbers = 0;
+            numbers = numbers.replace("\n",",");
             String[] numbersArray = numbers.split(",");
             for(String number:numbersArray){
                 if(!isNumeric(number)) throw new WrongDelimiterException("Wrong delimiter");
