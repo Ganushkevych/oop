@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class StringCalculator {
     public int add(String numbers){
         if(numbers.isEmpty()) return 0;
@@ -11,11 +13,14 @@ public class StringCalculator {
         }
         else numbers = numbers.replace("\n",",");
         int sumOfNumbers = 0;
+        ArrayList<Integer> negativeNumbersList = new ArrayList<>();
         String[] numbersArray = numbers.split(",");
         for(String number:numbersArray){
             if(!isNumeric(number)) throw new WrongDelimiterException("Wrong delimiter");
+            if(Integer.parseInt(number)<0) negativeNumbersList.add(Integer.parseInt(number));
             sumOfNumbers += Integer.parseInt(number);
         }
+        if(!negativeNumbersList.isEmpty()) throw new NegativeNumbersException("Negative numbers are not allowed",negativeNumbersList);
         return sumOfNumbers;
     }
     private static boolean isNumeric(String text) {

@@ -103,4 +103,22 @@ public class StringCalculatorTest {
             fail("Should be WrongDelimiterException");
         }catch (WrongDelimiterException ignored){}
     }
+    @Test
+    public void shouldThrowExceptionOnNegativeNumbers() {
+        try{
+            stringCalculator.add("-1,-2,3,4");
+            fail("Should be NegativeNumbersException");
+        }catch (NegativeNumbersException e){
+            assertEquals(e.getMessage(),"Negative numbers are not allowed\n[-1, -2]");
+        }
+    }
+    @Test
+    public void shouldThrowExceptionOnNegativeNumbers2() {
+        try{
+            stringCalculator.add("//%\n-1%-2,3,4");
+            fail("Should be NegativeNumbersException");
+        }catch (NegativeNumbersException e){
+            assertEquals(e.getMessage(),"Negative numbers are not allowed\n[-1, -2]");
+        }
+    }
 }
