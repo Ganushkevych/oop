@@ -8,10 +8,17 @@ public class StringCalculator {
             String[] Array = numbers.split("\n");
             if(Array.length>2) throw new WrongDelimiterException("Wrong delimiter");
             String delimiter;
-            if(numbers.startsWith("//[")) delimiter = Array[0].substring(3, Array[0].length() - 1);
+            String[] delimiters;
+            if(numbers.startsWith("//[")) {
+                delimiter = Array[0].substring(3, Array[0].length() - 1);
+            }
             else delimiter = String.valueOf(Array[0].charAt(2));
-            if(Array[1].endsWith(delimiter)) throw new WrongDelimiterException("Wrong delimiter");
-            numbers = Array[1].replace(delimiter,",");
+            delimiters = delimiter.split("]\\[");
+            numbers = Array[1];
+            for(String del:delimiters) {
+                if(Array[1].endsWith(del)) throw new WrongDelimiterException("Wrong delimiter");
+                numbers = numbers.replace(del,",");
+            }
         }
         else numbers = numbers.replace("\n",",");
         int sumOfNumbers = 0;
