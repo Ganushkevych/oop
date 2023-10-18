@@ -62,4 +62,45 @@ public class StringCalculatorTest {
             fail("Should be WrongDelimiterException");
         }catch (WrongDelimiterException ignored){}
     }
+    @Test
+    public void shouldReturnSumWithYoursDelimiter() {
+        assertEquals(6, stringCalculator.add("//*\n1*2*3"));
+        assertEquals(6, stringCalculator.add("//;\n1,2;3"));
+        assertEquals(6, stringCalculator.add("//*\n1*2,3"));
+    }
+    @Test
+    public void shouldThrowExceptionOnTwoDelimitersInARow2() {
+        try{
+            stringCalculator.add("//;\n1,;2,3");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
+    @Test
+    public void shouldThrowExceptionOnUnknownDelimiter2() {
+        try{
+            stringCalculator.add("//%\n1%2$3");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
+    @Test
+    public void shouldThrowExceptionOnDelimiterAtTheEnd2() {
+        try{
+            stringCalculator.add("//%\n1,2,3%");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
+    @Test
+    public void shouldThrowExceptionOnDelimiterAtTheBegin2() {
+        try{
+            stringCalculator.add("//^\n^1,2,3");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
+    @Test
+    public void shouldThrowExceptionOnWrongInput() {
+        try{
+            stringCalculator.add("/^\n^1,2,3");
+            fail("Should be WrongDelimiterException");
+        }catch (WrongDelimiterException ignored){}
+    }
 }
