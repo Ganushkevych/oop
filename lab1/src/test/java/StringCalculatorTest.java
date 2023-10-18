@@ -45,4 +45,9 @@ public class StringCalculatorTest {
             fail("Should be WrongDelimiterException");
         }catch (WrongDelimiterException ignored){}
     }
+    @Test
+    public void shouldReturnSumOfNumbers() {
+        assertEquals(7, stringCalculator.add("1,2,4"));
+        assertEquals(12, stringCalculator.add("1,2,4,5"));
+    }
 }
