@@ -121,4 +121,12 @@ public class StringCalculatorTest {
             assertEquals(e.getMessage(),"Negative numbers are not allowed\n[-1, -2]");
         }
     }
+    @Test
+    public void shouldReturnSumAvoidingNumberThatMoreThanThousand() {
+        assertEquals(1999, stringCalculator.add("1000,999,1001"));
+    }
+    @Test
+    public void shouldReturnSumAvoidingNumberThatMoreThanThousand2() {
+        assertEquals(1999, stringCalculator.add("//*\n1000*999,1001"));
+    }
 }

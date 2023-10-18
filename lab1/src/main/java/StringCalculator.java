@@ -18,7 +18,7 @@ public class StringCalculator {
         for(String number:numbersArray){
             if(!isNumeric(number)) throw new WrongDelimiterException("Wrong delimiter");
             if(Integer.parseInt(number)<0) negativeNumbersList.add(Integer.parseInt(number));
-            sumOfNumbers += Integer.parseInt(number);
+            if(Integer.parseInt(number)<=1000) sumOfNumbers += Integer.parseInt(number);
         }
         if(!negativeNumbersList.isEmpty()) throw new NegativeNumbersException("Negative numbers are not allowed",negativeNumbersList);
         return sumOfNumbers;
