@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+
 
 public class StringCalculator {
     public int add(String numbers){
@@ -14,6 +17,8 @@ public class StringCalculator {
             }
             else delimiter = String.valueOf(Array[0].charAt(2));
             delimiters = delimiter.split("]\\[");
+            Comparator<String> lengthComparator = Comparator.comparingInt(String::length).reversed();
+            Arrays.sort(delimiters, lengthComparator);
             numbers = Array[1];
             for(String del:delimiters) {
                 if(Array[1].endsWith(del)) throw new WrongDelimiterException("Wrong delimiter");

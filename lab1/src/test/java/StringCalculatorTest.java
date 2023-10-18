@@ -139,4 +139,9 @@ public class StringCalculatorTest {
         assertEquals(6, stringCalculator.add("//[*][:]\n1*2:3"));
         assertEquals(6, stringCalculator.add("//[*][%]\n1*2,3"));
     }
+    @Test
+    public void shouldReturnSumWithFewLongDelimiters() {
+        assertEquals(14, stringCalculator.add("//[**][****]\n5****4**3****2"));
+        assertEquals(28, stringCalculator.add("//[**][&][*][%%][%%%][***]\n1***2%%%3**4%%5*6&7"));
+    }
 }
