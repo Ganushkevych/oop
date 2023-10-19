@@ -118,4 +118,25 @@ public class Matrix implements MatrixInterface{
     public int hashCode() {
         return Objects.hash(rows, columns, Arrays.deepHashCode(numbers));
     }
+
+    public static Matrix plus(Matrix first, Matrix second){
+        if(first.getSize().numOfColumns()!=second.getSize().numOfColumns()&&
+                first.getSize().numOfRows()!=second.getSize().numOfRows()) throw new WrongParametersException("Matrix must have same size");
+        double[][] plusArray = new double[first.getSize().numOfRows()][first.getSize().numOfRows()];
+        for(int i = 0; i < first.getSize().numOfRows(); i++) {
+            for (int j = 0; j < first.getSize().numOfRows(); j++) {
+                plusArray[i][j] = first.getElement(i,j)+ second.getElement(i,j);
+            }
+        }
+        return new Matrix(plusArray);
+    }
+    public static Matrix multiplyScalar(Matrix first,double scalar){
+        double[][] multiplyArray = new double[first.getSize().numOfRows()][first.getSize().numOfRows()];
+        for(int i = 0; i < first.getSize().numOfRows(); i++) {
+            for (int j = 0; j < first.getSize().numOfRows(); j++) {
+                multiplyArray[i][j] = first.getElement(i,j)*scalar;
+            }
+        }
+        return new Matrix(multiplyArray);
+    }
 }

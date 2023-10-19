@@ -159,6 +159,19 @@ class ImmutableMatrixTest {
         changedNumber = 10000;
         rows = 3;
         columns = 3;
-        assertTrue(Arrays.deepEquals(matrix.getNumbers(),new double[][]{new double[]{1,2},new double[]{3,4}}));
+        assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{1, 2}, new double[]{3, 4}});
+    }
+    @Test
+    public void matrixAddition(){
+        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        Matrix otherMatrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertArrayEquals(ImmutableMatrix.plus(matrix, otherMatrix).getNumbers(),
+                new Matrix(new double[][]{new double[]{2, 4}, new double[]{6, 8}}).getNumbers());
+    }
+    @Test
+    public void matrixMultiplyOnScalar(){
+        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertArrayEquals(Matrix.multiplyScalar(matrix, 3).getNumbers(),
+                new Matrix(new double[][]{new double[]{3, 6}, new double[]{9, 12}}).getNumbers());
     }
 }

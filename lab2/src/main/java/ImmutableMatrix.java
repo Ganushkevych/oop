@@ -1,4 +1,4 @@
-public final class ImmutableMatrix implements MatrixInterface{
+public final class ImmutableMatrix extends Matrix implements MatrixInterface{
     private final Matrix matrix;
     public ImmutableMatrix(Matrix matrix) {
         this.matrix = new Matrix(matrix.getNumbers());
