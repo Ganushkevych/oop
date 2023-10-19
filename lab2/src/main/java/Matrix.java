@@ -122,19 +122,33 @@ public class Matrix implements MatrixInterface{
     public static Matrix plus(Matrix first, Matrix second){
         if(first.getSize().numOfColumns()!=second.getSize().numOfColumns()&&
                 first.getSize().numOfRows()!=second.getSize().numOfRows()) throw new WrongParametersException("Matrix must have same size");
-        double[][] plusArray = new double[first.getSize().numOfRows()][first.getSize().numOfRows()];
+        double[][] plusArray = new double[first.getSize().numOfRows()][first.getSize().numOfColumns()];
         for(int i = 0; i < first.getSize().numOfRows(); i++) {
-            for (int j = 0; j < first.getSize().numOfRows(); j++) {
+            for (int j = 0; j < first.getSize().numOfColumns(); j++) {
                 plusArray[i][j] = first.getElement(i,j)+ second.getElement(i,j);
             }
         }
         return new Matrix(plusArray);
     }
     public static Matrix multiplyScalar(Matrix first,double scalar){
-        double[][] multiplyArray = new double[first.getSize().numOfRows()][first.getSize().numOfRows()];
+        double[][] multiplyArray = new double[first.getSize().numOfRows()][first.getSize().numOfColumns()];
         for(int i = 0; i < first.getSize().numOfRows(); i++) {
-            for (int j = 0; j < first.getSize().numOfRows(); j++) {
+            for (int j = 0; j < first.getSize().numOfColumns(); j++) {
                 multiplyArray[i][j] = first.getElement(i,j)*scalar;
+            }
+        }
+        return new Matrix(multiplyArray);
+    }
+    public static Matrix multiplyMatrix(Matrix first, Matrix second){
+        if(first.getSize().numOfColumns()!=second.getSize().numOfRows()) throw new WrongParametersException("Matrix must have special size");
+        double[][] multiplyArray = new double[first.getSize().numOfRows()][second.getSize().numOfColumns()];
+        System.out.println(first.getSize().numOfRows());
+        System.out.println(second.getSize().numOfColumns());
+        for(int i = 0; i < first.getSize().numOfRows(); i++) {
+            for (int j = 0; j < second.getSize().numOfColumns(); j++) {
+                for (int e = 0; e < second.getSize().numOfRows(); e++){
+                    multiplyArray[i][j] += first.getElement(i,e)*second.getElement(e,j);
+                }
             }
         }
         return new Matrix(multiplyArray);

@@ -144,15 +144,23 @@ public class MatrixTest {
     }
     @Test
     public void matrixAddition(){
-        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        Matrix otherMatrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2,3},new double[]{3,4,5}});
+        Matrix otherMatrix = new Matrix(new double[][]{new double[]{1,2,3},new double[]{3,4,5}});
         assertArrayEquals(Matrix.plus(matrix, otherMatrix).getNumbers(),
-                new Matrix(new double[][]{new double[]{2, 4}, new double[]{6, 8}}).getNumbers());
+                new Matrix(new double[][]{new double[]{2, 4,6}, new double[]{6, 8,10}}).getNumbers());
     }
     @Test
     public void matrixMultiplyOnScalar(){
-        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2,3},new double[]{3,4,5}});
         assertArrayEquals(Matrix.multiplyScalar(matrix, 3).getNumbers(),
-                new Matrix(new double[][]{new double[]{3, 6}, new double[]{9, 12}}).getNumbers());
+                new Matrix(new double[][]{new double[]{3, 6,9}, new double[]{9, 12,15}}).getNumbers());
+    }
+    @Test
+    public void matrixMultiply(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4},new double[]{5,6},new double[]{7,8}});
+        Matrix otherMatrix = new Matrix(new double[][]{new double[]{1,2,3},new double[]{4,5,6}});
+        assertArrayEquals(Matrix.multiplyMatrix(matrix, otherMatrix).getNumbers(),
+                new Matrix(new double[][]{new double[]{9, 12,15}, new double[]{19,26,33},new double[]{29,40,51},
+                        new double[]{39,54,69}}).getNumbers());
     }
 }
