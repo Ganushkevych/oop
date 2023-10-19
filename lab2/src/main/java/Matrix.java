@@ -74,6 +74,13 @@ public class Matrix implements MatrixInterface{
     }
 
     @Override
+    public void print(){
+        for(double[] row:numbers) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
+    @Override
     public void setColumn(int column, double element) {
         if(column<0||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
         for(int i=0;i<rows;i++) {

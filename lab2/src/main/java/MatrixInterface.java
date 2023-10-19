@@ -5,6 +5,8 @@ public interface MatrixInterface {
     double[][] getNumbers();
     MatrixSize getSize();
 
+    void print();
+
     void setElement(int row, int column, double element);
     void setRow(int row, double element);
     void setColumn(int column, double element);
