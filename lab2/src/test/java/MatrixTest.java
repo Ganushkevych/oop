@@ -169,4 +169,11 @@ public class MatrixTest {
         assertArrayEquals(Matrix.transposedMatrix(matrix).getNumbers(),
                 new double[][]{new double[]{1,3}, new double[]{2,4},new double[]{3,5}});
     }
+    @Test
+    public void diagonalMatrix(){
+        double[] diagonalMatrixArray = {1,2,3,4};
+        assertArrayEquals(Matrix.diagonalMatrix(diagonalMatrixArray).getNumbers(),
+                new double[][]{new double[]{1,0,0,0}, new double[]{0,2,0,0},new double[]{0,0,3,0},
+                new double[]{0,0,0,4}});
+    }
 }

@@ -162,4 +162,14 @@ public class Matrix implements MatrixInterface{
         }
         return new Matrix(transposeArray);
     }
+    public static Matrix diagonalMatrix(double[] array){
+        double[][] diagonalMatrixArray = new double[array.length][array.length];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                if(i==j) diagonalMatrixArray[i][j] = array[i];
+                else diagonalMatrixArray[i][j] = 0;
+            }
+        }
+        return new Matrix(diagonalMatrixArray);
+    }
 }
