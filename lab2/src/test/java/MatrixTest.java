@@ -176,4 +176,11 @@ public class MatrixTest {
                 new double[][]{new double[]{1,0,0,0}, new double[]{0,2,0,0},new double[]{0,0,3,0},
                 new double[]{0,0,0,4}});
     }
+    @Test
+    public void matrixI(){
+        int size = 4;
+        assertArrayEquals(Matrix.matrixI(size).getNumbers(),
+                new double[][]{new double[]{1,0,0,0}, new double[]{0,1,0,0},new double[]{0,0,1,0},
+                        new double[]{0,0,0,1}});
+    }
 }

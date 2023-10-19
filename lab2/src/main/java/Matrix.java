@@ -164,12 +164,19 @@ public class Matrix implements MatrixInterface{
     }
     public static Matrix diagonalMatrix(double[] array){
         double[][] diagonalMatrixArray = new double[array.length][array.length];
+        Arrays.stream(diagonalMatrixArray).forEach(a -> Arrays.fill(a, 0));
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                if(i==j) diagonalMatrixArray[i][j] = array[i];
-                else diagonalMatrixArray[i][j] = 0;
-            }
+            diagonalMatrixArray[i][i] = array[i];
         }
         return new Matrix(diagonalMatrixArray);
+    }
+    public static Matrix matrixI(int size){
+        if(size<=0) throw new WrongParametersException("Size must be positive");
+        double[][] numbers = new double[size][size];
+        Arrays.stream(numbers).forEach(a -> Arrays.fill(a, 0));
+        for (int i = 0; i < size; i++) {
+            numbers[i][i] = 1;
+        }
+        return new Matrix(numbers);
     }
 }
