@@ -190,4 +190,9 @@ public class MatrixTest {
         System.out.println();
         Matrix.randomFilledColumnVector(size).print();
     }
+    @Test
+    public void matrixInverse(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertArrayEquals(matrix.inverseMatrix().getNumbers(),new double[][]{new double[]{-2,1},new double[]{1.5,-0.5}});
+    }
 }

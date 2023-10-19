@@ -193,4 +193,70 @@ public class Matrix implements MatrixInterface{
         randomFilledRowVector.fillRandom();
         return randomFilledRowVector;
     }
+    private Matrix submatrix(int excludedRow, int excludedColumn) {
+        double[][] newNumbers = new double[rows - 1][columns - 1];
+        int currentRow = 0;
+        for (int i = 0; i < rows; i++) {
+            if (i != excludedRow) {
+                int currentColumn = 0;
+                for (int j = 0; j < columns; j++) {
+                    if (j != excludedColumn) {
+                        newNumbers[currentRow][currentColumn] = numbers[i][j];
+                        currentColumn++;
+                    }
+                }
+                currentRow++;
+            }
+        }
+        return new Matrix(newNumbers);
+    }
+    private Matrix additionalMatrix() {
+        if (this.rows != this.columns) {
+            throw new WrongParametersException("Additional matrix can only be calculated for square matrix");
+        }
+        double[][] additionalMatrixNumbers = new double[this.rows][this.columns];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                Matrix submatrix = this.submatrix(i, j);
+                additionalMatrixNumbers[j][i] = Math.pow(-1, i + j) * submatrix.determinant();
+            }
+        }
+        return new Matrix(additionalMatrixNumbers);
+    }
+
+    private double determinant() {
+        if (this.rows != this.columns) {
+            throw new WrongParametersException("Determinant can only be calculated for square matrix");
+        }
+        if (this.rows == 1) {
+            return this.getElement(0, 0);
+        }
+        else if (this.rows == 2) {
+            return this.getElement(0, 0) * this.getElement(1, 1) - this.getElement(0, 1) * this.getElement(1, 0);
+        }
+        else {
+            double determinant = 0;
+            for (int i = 0; i < this.columns; i++) {
+                Matrix submatrix = this.submatrix(0, i);
+                System.out.println(determinant);
+                determinant += Math.pow(-1, i) * this.getElement(0, i) * submatrix.determinant();
+            }
+            System.out.println(determinant);
+            return determinant;
+        }
+    }
+
+    public Matrix inverseMatrix() {
+        if (this.rows != this.columns) throw new WrongParametersException("Inverse can only be calculated for square matrix");
+        double determinant = this.determinant();
+        if (determinant == 0) throw new WrongParametersException("Matrix isn't invertible");
+        Matrix additionalMatrix = this.additionalMatrix();
+        double[][] inverseMatrixNumbers = new double[this.rows][this.columns];
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.columns; j++) {
+                inverseMatrixNumbers[i][j] = (double) Math.round(additionalMatrix.getElement(i, j) / determinant * 100) /100;
+            }
+        }
+        return new Matrix(inverseMatrixNumbers);
+    }
 }
