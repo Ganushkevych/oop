@@ -183,4 +183,11 @@ public class MatrixTest {
                 new double[][]{new double[]{1,0,0,0}, new double[]{0,1,0,0},new double[]{0,0,1,0},
                         new double[]{0,0,0,1}});
     }
+    @Test
+    public void randomFilledRowAndColumnVectors(){
+        int size = 4;
+        Matrix.randomFilledRowVector(size).print();
+        System.out.println();
+        Matrix.randomFilledColumnVector(size).print();
+    }
 }

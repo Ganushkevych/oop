@@ -99,7 +99,7 @@ public class Matrix implements MatrixInterface{
         Random random = new Random();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                numbers[i][j] = random.nextDouble();
+                numbers[i][j] = random.nextInt();
             }
         }
     }
@@ -178,5 +178,19 @@ public class Matrix implements MatrixInterface{
             numbers[i][i] = 1;
         }
         return new Matrix(numbers);
+    }
+    public static Matrix randomFilledRowVector(int size){
+        if(size<=0) throw new WrongParametersException("Size must be positive");
+        double[][] numbers = new double[size][1];
+        Matrix randomFilledRowVector = new Matrix(numbers);
+        randomFilledRowVector.fillRandom();
+        return randomFilledRowVector;
+    }
+    public static Matrix randomFilledColumnVector(int size){
+        if(size<=0) throw new WrongParametersException("Size must be positive");
+        double[][] numbers = new double[1][size];
+        Matrix randomFilledRowVector = new Matrix(numbers);
+        randomFilledRowVector.fillRandom();
+        return randomFilledRowVector;
     }
 }
