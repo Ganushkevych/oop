@@ -103,4 +103,10 @@ public class MatrixTest {
         assertEquals(matrix.getSize().numOfRows(),2);
         assertTrue(Arrays.deepEquals(matrix.getNumbers(), new double[][]{new double[]{1,2},new double[]{3,4}}));
     }
+    @Test
+    public void matrixGetSize(){
+        Matrix matrix = new Matrix(5,6);
+        assertEquals(matrix.getSize().numOfColumns(),6);
+        assertEquals(matrix.getSize().numOfRows(),5);
+    }
 }
