@@ -30,7 +30,25 @@ public class Matrix implements MatrixInterface{
         this.columns = matrix.columns;
         this.numbers = matrix.numbers;
     }
-
+    @Override
+    public double getElement(int row, int column){
+        if(row<0||column<0||row>rows||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        return numbers[row][column];
+    }
+    @Override
+    public double[] getRow(int row){
+        if(row<0||row>rows) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        return numbers[row];
+    }
+    @Override
+    public double[] getColumn(int column){
+        if(column<0||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        double[] columnArray = new double[rows];
+        for (int i = 0; i < rows; i++) {
+            columnArray[i] = numbers[i][column];
+        }
+        return columnArray;
+    }
     @Override
     public double[][] getNumbers(){
         return numbers;

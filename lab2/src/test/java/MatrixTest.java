@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixTest {
@@ -72,5 +74,33 @@ public class MatrixTest {
         matrix.fillRandom();
         assertEquals(matrix.getSize().numOfColumns(),2);
         assertEquals(matrix.getSize().numOfRows(),2);
+    }
+    @Test
+    public void matrixGetElement(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertEquals(matrix.getSize().numOfColumns(),2);
+        assertEquals(matrix.getSize().numOfRows(),2);
+        assertEquals(matrix.getElement(0,1),2);
+    }
+    @Test
+    public void matrixGetRow(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertEquals(matrix.getSize().numOfColumns(),2);
+        assertEquals(matrix.getSize().numOfRows(),2);
+        assertEquals(Arrays.toString(matrix.getRow(0)), Arrays.toString((new double[]{1, 2})));
+    }
+    @Test
+    public void matrixGetColumn(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertEquals(matrix.getSize().numOfColumns(),2);
+        assertEquals(matrix.getSize().numOfRows(),2);
+        assertEquals(Arrays.toString(matrix.getColumn(1)), Arrays.toString((new double[]{2, 4})));
+    }
+    @Test
+    public void matrixGetNumbers(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        assertEquals(matrix.getSize().numOfColumns(),2);
+        assertEquals(matrix.getSize().numOfRows(),2);
+        assertTrue(Arrays.deepEquals(matrix.getNumbers(), new double[][]{new double[]{1,2},new double[]{3,4}}));
     }
 }
