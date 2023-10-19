@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 
 public class Matrix implements MatrixInterface{
@@ -93,5 +95,20 @@ public class Matrix implements MatrixInterface{
                 numbers[i][j] = random.nextDouble();
             }
         }
+    }
+    @Override
+    public boolean equals(Matrix someMatrix) {
+        if (this.rows!=someMatrix.rows||this.columns!= someMatrix.columns) return false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if(numbers[i][j]!=someMatrix.numbers[i][j]) return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rows, columns, Arrays.deepHashCode(numbers));
     }
 }

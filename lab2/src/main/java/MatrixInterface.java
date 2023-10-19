@@ -10,4 +10,7 @@ public interface MatrixInterface {
     void setColumn(int column, double element);
     void fillByArray(double[][] numbers);
     void fillRandom();
+
+    boolean equals(Matrix matrix);
+    int hashCode();
 }

@@ -109,4 +109,19 @@ public class MatrixTest {
         assertEquals(matrix.getSize().numOfColumns(),6);
         assertEquals(matrix.getSize().numOfRows(),5);
     }
+    @Test
+    public void matrixEquals(){
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        Matrix otherMatrix = new Matrix(2,2);
+        otherMatrix.setRow(0, 1);
+        otherMatrix.setColumn(1,2);
+        otherMatrix.setElement(1,0,3);
+        otherMatrix.setElement(1,1,4);
+        assertTrue(matrix.equals(otherMatrix));
+    }
+    @Test
+    public void matrixHashCode(){
+        Matrix matrix = new Matrix(2,2);
+        assertEquals(matrix.hashCode(),63488);
+    }
 }
