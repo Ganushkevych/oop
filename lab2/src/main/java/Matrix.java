@@ -153,4 +153,13 @@ public class Matrix implements MatrixInterface{
         }
         return new Matrix(multiplyArray);
     }
+    public static Matrix transposedMatrix(Matrix matrix){
+        double[][] transposeArray = new double[matrix.getSize().numOfColumns()][matrix.getSize().numOfRows()];
+        for(int i = 0; i < matrix.getSize().numOfRows(); i++) {
+            for (int j = 0; j < matrix.getSize().numOfColumns(); j++) {
+                transposeArray[j][i] = matrix.getElement(i,j);
+            }
+        }
+        return new Matrix(transposeArray);
+    }
 }
