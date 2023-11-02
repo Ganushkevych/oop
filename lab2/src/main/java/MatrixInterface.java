@@ -14,5 +14,8 @@ public interface MatrixInterface {
     void fillRandom();
 
     boolean equals(Matrix matrix);
+
+    boolean equals(ImmutableMatrix someMatrix);
+
     int hashCode();
 }

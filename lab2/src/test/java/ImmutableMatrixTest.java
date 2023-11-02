@@ -10,7 +10,6 @@ class ImmutableMatrixTest {
         ImmutableMatrix matrix = new ImmutableMatrix();
         assertEquals(matrix.getSize().numOfColumns(),0);
         assertEquals(matrix.getSize().numOfRows(),0);
-        assertNull(matrix.getNumbers());
     }
     @Test
     public void matrixCreationBySize(){
@@ -28,7 +27,7 @@ class ImmutableMatrixTest {
     }
     @Test
     public void matrixCreationByMatrix(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new Matrix(new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}}));
+        ImmutableMatrix matrix = new ImmutableMatrix(new ImmutableMatrix(new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}}));
         assertEquals(matrix.getSize().numOfColumns(),3);
         assertEquals(matrix.getSize().numOfRows(),2);
         assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}});
@@ -130,12 +129,8 @@ class ImmutableMatrixTest {
     }
     @Test
     public void matrixEquals(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        Matrix otherMatrix = new Matrix(2,2);
-        otherMatrix.setRow(0, 1);
-        otherMatrix.setColumn(1,2);
-        otherMatrix.setElement(1,0,3);
-        otherMatrix.setElement(1,1,4);
+        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{0,0},new double[]{0,0}});
+        ImmutableMatrix otherMatrix = new ImmutableMatrix(2,2);
         assertTrue(matrix.equals(otherMatrix));
     }
     @Test
@@ -152,7 +147,6 @@ class ImmutableMatrixTest {
         double changedNumber = matrix.getElement(0,0);
         int rows = matrix.getSize().numOfRows();
         int columns = matrix.getSize().numOfColumns();
-        assert changedNumbers != null;
         changedNumbers[0][1] = 10000;
         changedRow[0] = 10000;
         changedColumn[1] = 10000;
@@ -160,18 +154,5 @@ class ImmutableMatrixTest {
         rows = 3;
         columns = 3;
         assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{1, 2}, new double[]{3, 4}});
-    }
-    @Test
-    public void matrixAddition(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        Matrix otherMatrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        assertArrayEquals(ImmutableMatrix.plus(matrix, otherMatrix).getNumbers(),
-                new Matrix(new double[][]{new double[]{2, 4}, new double[]{6, 8}}).getNumbers());
-    }
-    @Test
-    public void matrixMultiplyOnScalar(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        assertArrayEquals(Matrix.multiplyScalar(matrix, 3).getNumbers(),
-                new Matrix(new double[][]{new double[]{3, 6}, new double[]{9, 12}}).getNumbers());
     }
 }

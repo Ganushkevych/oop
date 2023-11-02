@@ -1,37 +1,91 @@
-public final class ImmutableMatrix extends Matrix implements MatrixInterface{
-    private final Matrix matrix;
-    public ImmutableMatrix(Matrix matrix) {
-        this.matrix = new Matrix(matrix.getNumbers());
-    }
-    public ImmutableMatrix(int rows, int columns){
-        this.matrix = new Matrix(rows,columns);
-    }
-    public ImmutableMatrix(double[][] numbers){
-        this.matrix = new Matrix(numbers);
-    }
+import java.util.Arrays;
+import java.util.Objects;
+
+public final class ImmutableMatrix implements MatrixInterface{
+    private final int rows;
+    private final int columns;
+    private final double[][] numbers;
     public ImmutableMatrix() {
-        this.matrix = new Matrix();
+        this.rows = 0;
+        this.columns = 0;
+        this.numbers = null;
+    }
+
+    public ImmutableMatrix(int rows, int columns) {
+        if(rows<=0||columns<=0) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
+        this.rows = rows;
+        this.columns = columns;
+        this.numbers = new double[rows][columns];
+    }
+
+    public ImmutableMatrix(double[][] numbers) {
+        if(numbers==null) {
+            throw new WrongParametersException("Array of numbers should not be null");
+        }
+        this.rows = numbers.length;
+        this.columns = numbers[0].length;
+        if(columns==0) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
+        this.numbers = numbers;
+    }
+
+    public ImmutableMatrix(ImmutableMatrix matrix) {
+        this.rows = matrix.rows;
+        this.columns = matrix.columns;
+        this.numbers = matrix.numbers;
     }
     @Override
     public double getElement(int row, int column){
-        return matrix.getElement(row,column);
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        if(row<0||column<0||row>rows||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
+        return numbers[row][column];
     }
     @Override
     public double[] getRow(int row){
-        return matrixNumbersCopy(matrix.getRow(row));
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        if(row<0||row>rows) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
+        return matrixNumbersCopy(numbers[row]);
     }
     @Override
     public double[] getColumn(int column){
-        return matrixNumbersCopy(matrix.getColumn(column));
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        if(column<0||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
+        double[] columnArray = new double[rows];
+        for (int i = 0; i < rows; i++) {
+            columnArray[i] = numbers[i][column];
+        }
+        return columnArray;
     }
     @Override
     public double[][] getNumbers(){
-        if(matrix.getNumbers()==null) return null;
-        return matrixNumbersCopy(matrix.getNumbers());
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        return matrixNumbersCopy(numbers);
     }
     @Override
     public void print(){
-        matrix.print();
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        for(double[] row:numbers) {
+            System.out.println(Arrays.toString(row));
+        }
     }
     @Override
     public void setElement(int row, int column, double element){
@@ -53,17 +107,32 @@ public final class ImmutableMatrix extends Matrix implements MatrixInterface{
     public void fillRandom(){
         throw new ImmutableMatrixException("It's Immutable Matrix");
     }
+
+    @Override
+    public boolean equals(Matrix matrix) {
+        return false;
+    }
+
     @Override
     public MatrixSize getSize(){
-        return matrix.getSize();
+        return new MatrixSize(this.rows,this.columns);
     }
     @Override
-    public boolean equals(Matrix someMatrix){
-        return matrix.equals(someMatrix);
+    public boolean equals(ImmutableMatrix someMatrix){
+        if(numbers==null||someMatrix.numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
+        if (this.rows!=someMatrix.rows||this.columns!= someMatrix.columns) return false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if(numbers[i][j]!=someMatrix.numbers[i][j]) return false;
+            }
+        }
+        return true;
     }
     @Override
     public int hashCode(){
-        return matrix.hashCode();
+        return Objects.hash(rows, columns, Arrays.deepHashCode(numbers));
     }
     private double[][] matrixNumbersCopy(double[][] numbers){
         double[][] copiedNumbers = new double[numbers.length][numbers[0].length];

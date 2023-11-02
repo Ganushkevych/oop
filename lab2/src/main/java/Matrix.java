@@ -13,17 +13,23 @@ public class Matrix implements MatrixInterface{
     }
 
     public Matrix(int rows, int columns) {
-        if(rows<=0||columns<=0) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(rows<=0||columns<=0) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         this.rows = rows;
         this.columns = columns;
         this.numbers = new double[rows][columns];
     }
 
     public Matrix(double[][] numbers) {
-        if(numbers==null) throw new WrongParametersException("Array of numbers should not be null");
+        if(numbers==null) {
+            throw new WrongParametersException("Array of numbers should not be null");
+        }
         this.rows = numbers.length;
         this.columns = numbers[0].length;
-        if(columns==0) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(columns==0) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         this.numbers = numbers;
     }
 
@@ -34,17 +40,23 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public double getElement(int row, int column){
-        if(row<0||column<0||row>rows||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(row<0||column<0||row>rows||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         return numbers[row][column];
     }
     @Override
     public double[] getRow(int row){
-        if(row<0||row>rows) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(row<0||row>rows) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         return numbers[row];
     }
     @Override
     public double[] getColumn(int column){
-        if(column<0||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(column<0||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         double[] columnArray = new double[rows];
         for (int i = 0; i < rows; i++) {
             columnArray[i] = numbers[i][column];
@@ -61,13 +73,17 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public void setElement(int row, int column, double element) {
-        if(row<0||column<0||row>rows||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(row<0||column<0||row>rows||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         this.numbers[row][column] = element;
     }
 
     @Override
     public void setRow(int row, double element) {
-        if(row<0||row>rows) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(row<0||row>rows) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         for(int i=0;i<columns;i++) {
             this.setElement(row, i, element);
         }
@@ -82,15 +98,21 @@ public class Matrix implements MatrixInterface{
 
     @Override
     public void setColumn(int column, double element) {
-        if(column<0||column>columns) throw new WrongParametersException("Numbers of rows and columns should be positive");
+        if(column<0||column>columns) {
+            throw new WrongParametersException("Numbers of rows and columns should be positive");
+        }
         for(int i=0;i<rows;i++) {
             this.setElement(i, column, element);
         }
     }
     @Override
     public void fillByArray(double[][] numbers){
-        if(numbers==null) throw new WrongParametersException("Array of numbers should not be null");
-        if(!(this.numbers.length == numbers.length && this.numbers[0].length == numbers[0].length)) throw new WrongParametersException("Array of numbers should be same size as matrix");
+        if(numbers==null) {
+            throw new WrongParametersException("Array of numbers should not be null");
+        }
+        if(!(this.numbers.length == numbers.length && this.numbers[0].length == numbers[0].length)) {
+            throw new WrongParametersException("Array of numbers should be same size as matrix");
+        }
         this.numbers = numbers;
     }
 
@@ -105,13 +127,22 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public boolean equals(Matrix someMatrix) {
-        if (this.rows!=someMatrix.rows||this.columns!= someMatrix.columns) return false;
+        if (this.rows!=someMatrix.rows||this.columns!= someMatrix.columns) {
+            return false;
+        }
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if(numbers[i][j]!=someMatrix.numbers[i][j]) return false;
+                if(numbers[i][j]!=someMatrix.numbers[i][j]) {
+                    return false;
+                }
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(ImmutableMatrix someMatrix) {
+        return false;
     }
 
     @Override
@@ -121,7 +152,9 @@ public class Matrix implements MatrixInterface{
 
     public static Matrix plus(Matrix first, Matrix second){
         if(first.getSize().numOfColumns()!=second.getSize().numOfColumns()&&
-                first.getSize().numOfRows()!=second.getSize().numOfRows()) throw new WrongParametersException("Matrix must have same size");
+                first.getSize().numOfRows()!=second.getSize().numOfRows()) {
+            throw new WrongParametersException("Matrix must have same size");
+        }
         double[][] plusArray = new double[first.getSize().numOfRows()][first.getSize().numOfColumns()];
         for(int i = 0; i < first.getSize().numOfRows(); i++) {
             for (int j = 0; j < first.getSize().numOfColumns(); j++) {
@@ -140,10 +173,10 @@ public class Matrix implements MatrixInterface{
         return new Matrix(multiplyArray);
     }
     public static Matrix multiplyMatrix(Matrix first, Matrix second){
-        if(first.getSize().numOfColumns()!=second.getSize().numOfRows()) throw new WrongParametersException("Matrix must have special size");
+        if(first.getSize().numOfColumns()!=second.getSize().numOfRows()) {
+            throw new WrongParametersException("Matrix must have special size");
+        }
         double[][] multiplyArray = new double[first.getSize().numOfRows()][second.getSize().numOfColumns()];
-        System.out.println(first.getSize().numOfRows());
-        System.out.println(second.getSize().numOfColumns());
         for(int i = 0; i < first.getSize().numOfRows(); i++) {
             for (int j = 0; j < second.getSize().numOfColumns(); j++) {
                 for (int e = 0; e < second.getSize().numOfRows(); e++){
@@ -171,7 +204,9 @@ public class Matrix implements MatrixInterface{
         return new Matrix(diagonalMatrixArray);
     }
     public static Matrix matrixI(int size){
-        if(size<=0) throw new WrongParametersException("Size must be positive");
+        if(size<=0) {
+            throw new WrongParametersException("Size must be positive");
+        }
         double[][] numbers = new double[size][size];
         Arrays.stream(numbers).forEach(a -> Arrays.fill(a, 0));
         for (int i = 0; i < size; i++) {
@@ -180,14 +215,18 @@ public class Matrix implements MatrixInterface{
         return new Matrix(numbers);
     }
     public static Matrix randomFilledRowVector(int size){
-        if(size<=0) throw new WrongParametersException("Size must be positive");
+        if(size<=0) {
+            throw new WrongParametersException("Size must be positive");
+        }
         double[][] numbers = new double[size][1];
         Matrix randomFilledRowVector = new Matrix(numbers);
         randomFilledRowVector.fillRandom();
         return randomFilledRowVector;
     }
     public static Matrix randomFilledColumnVector(int size){
-        if(size<=0) throw new WrongParametersException("Size must be positive");
+        if(size<=0) {
+            throw new WrongParametersException("Size must be positive");
+        }
         double[][] numbers = new double[1][size];
         Matrix randomFilledRowVector = new Matrix(numbers);
         randomFilledRowVector.fillRandom();
@@ -231,30 +270,30 @@ public class Matrix implements MatrixInterface{
         if (this.rows == 1) {
             return this.getElement(0, 0);
         }
-        else if (this.rows == 2) {
+        if (this.rows == 2) {
             return this.getElement(0, 0) * this.getElement(1, 1) - this.getElement(0, 1) * this.getElement(1, 0);
         }
-        else {
-            double determinant = 0;
-            for (int i = 0; i < this.columns; i++) {
-                Matrix submatrix = this.submatrix(0, i);
-                System.out.println(determinant);
-                determinant += Math.pow(-1, i) * this.getElement(0, i) * submatrix.determinant();
-            }
-            System.out.println(determinant);
-            return determinant;
+        double determinant = 0;
+        for (int i = 0; i < this.columns; i++) {
+            Matrix submatrix = this.submatrix(0, i);
+            determinant += Math.pow(-1, i) * this.getElement(0, i) * submatrix.determinant();
         }
+        return determinant;
     }
 
     public Matrix inverseMatrix() {
-        if (this.rows != this.columns) throw new WrongParametersException("Inverse can only be calculated for square matrix");
+        if (this.rows != this.columns) {
+            throw new WrongParametersException("Inverse can only be calculated for square matrix");
+        }
         double determinant = this.determinant();
-        if (determinant == 0) throw new WrongParametersException("Matrix isn't invertible");
+        if (determinant == 0) {
+            throw new WrongParametersException("Matrix isn't invertible");
+        }
         Matrix additionalMatrix = this.additionalMatrix();
         double[][] inverseMatrixNumbers = new double[this.rows][this.columns];
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                inverseMatrixNumbers[i][j] = (double) Math.round(additionalMatrix.getElement(i, j) / determinant * 100) /100;
+                inverseMatrixNumbers[i][j] = additionalMatrix.getElement(i, j) / determinant;
             }
         }
         return new Matrix(inverseMatrixNumbers);

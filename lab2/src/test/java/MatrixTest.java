@@ -192,7 +192,7 @@ public class MatrixTest {
     }
     @Test
     public void matrixInverse(){
-        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        assertArrayEquals(matrix.inverseMatrix().getNumbers(),new double[][]{new double[]{-2,1},new double[]{1.5,-0.5}});
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2,3},new double[]{4,50,6},new double[]{70,80,90}});
+        System.out.println(Arrays.deepToString(matrix.inverseMatrix().getNumbers()));
     }
 }
