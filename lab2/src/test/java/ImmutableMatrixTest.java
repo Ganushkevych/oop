@@ -8,15 +8,16 @@ class ImmutableMatrixTest {
     @Test
     public void emptyMatrixCreation(){
         ImmutableMatrix matrix = new ImmutableMatrix();
-        assertEquals(matrix.getSize().numOfColumns(),0);
-        assertEquals(matrix.getSize().numOfRows(),0);
+        assertAll(() -> assertEquals(matrix.getSize().numOfColumns(),0),
+                () -> assertEquals(matrix.getSize().numOfRows(),0),
+                () -> assertThrows(WrongParametersException.class, matrix::getNumbers));
     }
     @Test
     public void matrixCreationBySize(){
         ImmutableMatrix matrix = new ImmutableMatrix(2,3);
-        assertEquals(matrix.getSize().numOfColumns(),3);
-        assertEquals(matrix.getSize().numOfRows(),2);
-        assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{0,0,0},new double[]{0,0,0}});
+        assertAll(()-> assertEquals(matrix.getSize().numOfColumns(),3),
+                () -> assertEquals(matrix.getSize().numOfRows(),2),
+                () -> assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{0,0,0},new double[]{0,0,0}}));
     }
     @Test
     public void matrixCreationByNumbers(){
@@ -27,7 +28,7 @@ class ImmutableMatrixTest {
     }
     @Test
     public void matrixCreationByMatrix(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new ImmutableMatrix(new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}}));
+        ImmutableMatrix matrix = new ImmutableMatrix(new ImmutableMatrix(new Matrix(new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}})));
         assertEquals(matrix.getSize().numOfColumns(),3);
         assertEquals(matrix.getSize().numOfRows(),2);
         assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{1,2,3},new double[]{-1,-2,-3}});
@@ -140,19 +141,21 @@ class ImmutableMatrixTest {
     }
     @Test
     public void shouldNotChangeImmutableMatrix(){
-        ImmutableMatrix matrix = new ImmutableMatrix(new double[][]{new double[]{1,2},new double[]{3,4}});
-        double[][] changedNumbers = matrix.getNumbers();
-        double[] changedRow = matrix.getRow(0);
-        double[] changedColumn = matrix.getColumn(0);
-        double changedNumber = matrix.getElement(0,0);
-        int rows = matrix.getSize().numOfRows();
-        int columns = matrix.getSize().numOfColumns();
+        Matrix matrix = new Matrix(new double[][]{new double[]{1,2},new double[]{3,4}});
+        ImmutableMatrix iMatrix = new ImmutableMatrix(matrix);
+        matrix.setElement(0,0,0);
+        double[][] changedNumbers = iMatrix.getNumbers();
+        double[] changedRow = iMatrix.getRow(0);
+        double[] changedColumn = iMatrix.getColumn(0);
+        double changedNumber = iMatrix.getElement(0,0);
+        int rows = iMatrix.getSize().numOfRows();
+        int columns = iMatrix.getSize().numOfColumns();
         changedNumbers[0][1] = 10000;
         changedRow[0] = 10000;
         changedColumn[1] = 10000;
         changedNumber = 10000;
         rows = 3;
         columns = 3;
-        assertArrayEquals(matrix.getNumbers(), new double[][]{new double[]{1, 2}, new double[]{3, 4}});
+        assertArrayEquals(iMatrix.getNumbers(), new double[][]{new double[]{1, 2}, new double[]{3, 4}});
     }
 }

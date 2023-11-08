@@ -40,6 +40,9 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public double getElement(int row, int column){
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
         if(row<0||column<0||row>rows||column>columns) {
             throw new WrongParametersException("Numbers of rows and columns should be positive");
         }
@@ -47,6 +50,9 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public double[] getRow(int row){
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
         if(row<0||row>rows) {
             throw new WrongParametersException("Numbers of rows and columns should be positive");
         }
@@ -54,6 +60,9 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public double[] getColumn(int column){
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
         if(column<0||column>columns) {
             throw new WrongParametersException("Numbers of rows and columns should be positive");
         }
@@ -65,6 +74,9 @@ public class Matrix implements MatrixInterface{
     }
     @Override
     public double[][] getNumbers(){
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
         return numbers;
     }
     @Override
@@ -91,6 +103,9 @@ public class Matrix implements MatrixInterface{
 
     @Override
     public void print(){
+        if(numbers==null) {
+            throw new WrongParametersException("Matrix is empty");
+        }
         for(double[] row:numbers) {
             System.out.println(Arrays.toString(row));
         }

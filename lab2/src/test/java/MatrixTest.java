@@ -8,9 +8,9 @@ public class MatrixTest {
     @Test
     public void emptyMatrixCreation(){
         Matrix matrix = new Matrix();
-        assertEquals(matrix.getSize().numOfColumns(),0);
-        assertEquals(matrix.getSize().numOfRows(),0);
-        assertNull(matrix.getNumbers());
+        assertAll(() -> assertEquals(matrix.getSize().numOfColumns(),0),
+                () -> assertEquals(matrix.getSize().numOfRows(),0),
+                () -> assertThrows(WrongParametersException.class, matrix::getNumbers));
     }
     @Test
     public void matrixCreationBySize(){
